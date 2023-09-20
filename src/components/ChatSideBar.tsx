@@ -19,7 +19,7 @@ const ChatSideBar = ({ chats, chatId }: Props) => {
           New Chat
         </Button>
       </Link>
-      <div className="flex flex-col gap-2 mt-4">
+      <div className="flex flex-col mt-4 gap-2">
         {chats.map((chat) => (
           <Link key={chat.id} href={`/chat/${chat.id}`}>
             <div
@@ -36,7 +36,7 @@ const ChatSideBar = ({ chats, chatId }: Props) => {
         ))}
       </div>
       <div className="absolute bottom-4 left-4">
-        <div className="flex flex-wrap items-center gap-2 text-sm text-slate-500">
+        <div className="flex flex-wrap items-center text-sm gap-2 text-slate-500">
           <Link href="/">Home</Link>
           <Link href="/">Source</Link>
           {/* Stripe button */}
