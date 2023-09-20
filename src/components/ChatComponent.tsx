@@ -8,7 +8,7 @@ import MessageList from "./MessageList";
 
 type Props = {};
 
-const chatComponent = (props: Props) => {
+const ChatComponent = (props: Props) => {
   const { input, handleInputChange, handleSubmit, messages } = useChat({
     api: "/api/chat",
   });
@@ -40,4 +40,4 @@ const chatComponent = (props: Props) => {
   );
 };
 
-export default chatComponent;
+export default ChatComponent;
