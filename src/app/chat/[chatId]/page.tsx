@@ -7,6 +7,7 @@ import { auth } from "@clerk/nextjs";
 import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import React from "react";
+import { checkSubscription } from "@/lib/subscription";
 
 type Props = {
   params: {
@@ -32,24 +33,23 @@ const ChatPage = async ({ params: { chatId } }: Props) => {
   }
 
   const currentChat = _chats.find((chat) => chat.id === parseInt(chatId));
+  const isPro = await checkSubscription();
 
   return (
-    <div className="flex max-h-screen overflow-scroll">
-      <div className="flex w-full max-h-screen overflow-scroll">
-        {/* Chat sidebar */}
-        <div className="flex-[1] max-w-xs">
-          <ChatSideBar chats={_chats} chatId={parseInt(chatId)} />
-        </div>
-        {/* pdf viewer */}
-        <div className="max-h-screen p-4 overflow-scroll flex-[5]">
-          {/* PDFViewer */}
-          <PDFViewer pdf_url={currentChat?.pdfUrl || ""} />
-        </div>
-        {/* Chat component */}
-        <div className="flex-[3] border-1-4 border-1-slate-200">
-          {/* ChatComponent */}
-          <ChatComponent chatId={parseInt(chatId)} />
-        </div>
+    <div className="flex flex-col h-screen md:flex-row">
+      {/* Chat sidebar */}
+      <div className="w-full overflow-y-auto h-1/4 md:w-1/4 md:h-full">
+        <ChatSideBar chats={_chats} chatId={parseInt(chatId)} isPro={isPro} />
+      </div>
+
+      {/* pdf viewer */}
+      <div className="w-full p-4 overflow-y-auto h-1/2 md:w-1/2 md:h-full md:p-4">
+        <PDFViewer pdf_url={currentChat?.pdfUrl || ""} />
+      </div>
+
+      {/* Chat component */}
+      <div className="w-full overflow-y-auto border-l-4 h-1/4 md:w-1/4 md:h-full border-slate-200">
+        <ChatComponent chatId={parseInt(chatId)} />
       </div>
     </div>
   );

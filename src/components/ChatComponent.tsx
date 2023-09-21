@@ -30,40 +30,46 @@ const ChatComponent = ({ chatId }: Props) => {
     initialMessages: data || [],
   });
   React.useEffect(() => {
-    const messageContainer = document.getElementById("message-container");
-    if (messageContainer) {
-      messageContainer.scrollTo({
-        top: messageContainer.scrollHeight,
+    const messageListContainer = document.getElementById(
+      "message-list-container"
+    );
+    if (messageListContainer) {
+      messageListContainer.scrollTo({
+        top: messageListContainer.scrollHeight,
         behavior: "smooth",
       });
     }
   }, [messages]);
+
   return (
-    <div
-      className="relative max-h-screen overflow-scroll"
-      id="message-container"
-    >
+    <div className="flex flex-col h-screen bg-gray-100" id="message-container">
       {/* header */}
-      <div className="sticky inset-x-0 top-0 p-2 bg-white h-fit">
-        <h3 className="text-xl font-bold">Chat</h3>
+      <div className="sticky inset-x-0 top-0 z-10 flex items-center justify-center p-4 bg-white shadow-md">
+        <h3 className="text-xl font-semibold text-gray-700">PDF AI Chat</h3>
       </div>
 
       {/* message list */}
-      <MessageList messages={messages} isLoading={isLoading} />
+      <div
+        className="flex-grow px-4 pt-4 pb-4 overflow-y-auto"
+        id="message-list-container"
+      >
+        <MessageList messages={messages} isLoading={isLoading} />
+      </div>
 
+      {/* Input form */}
       <form
         onSubmit={handleSubmit}
-        className="sticky inset-x-0 bottom-0 px-2 py-4 bg-white"
+        className="z-10 flex-none p-4 bg-white border-t border-gray-200 shadow-md"
       >
-        <div className="flex">
+        <div className="flex items-center">
           <Input
             value={input}
             onChange={handleInputChange}
             placeholder="Ask any question..."
-            className="w-full"
+            className="flex-grow px-4 py-2 mr-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <Button className="ml-2 bg-blue-600">
-            <Send className="w-4 h-4" />
+          <Button className="px-4 py-2 transition-colors duration-200 bg-blue-600 hover:bg-blue-700 rounded-r-md">
+            <Send className="w-4 h-4 text-white" />
           </Button>
         </div>
       </form>
