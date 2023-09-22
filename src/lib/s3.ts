@@ -3,6 +3,14 @@ import AWS from "aws-sdk";
 const { S3_ACCESS_KEY_ID, S3_SECRET_ACCESS_KEY, S3_BUCKET_NAME, S3_REGION } =
   process.env;
 
+// log AWS config
+console.log("S3_ACCESS_KEY_ID:", S3_ACCESS_KEY_ID);
+console.log("S3_SECRET_ACCESS_KEY:", S3_SECRET_ACCESS_KEY);
+console.log("S3_BUCKET_NAME:", S3_BUCKET_NAME);
+console.log("S3_REGION:", S3_REGION);
+const NEXT_PUBLIC_S3_BUCKET_NAME = process.env.NEXT_PUBLIC_S3_BUCKET_NAME;
+console.log("NEXT_PUBLIC_S3_BUCKET_NAME:", NEXT_PUBLIC_S3_BUCKET_NAME);
+
 export async function uploadToS3(file: File) {
   if (
     !S3_ACCESS_KEY_ID ||
